@@ -1,10 +1,11 @@
 using System;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
+using CsvHelper;
 using utils;
 
 namespace WarThunder {
-    class GroundVehicle {
+    public class GroundVehicle {
         // Tree info
         string name;
         string url;
@@ -189,4 +190,16 @@ namespace WarThunder {
             }
         }
     }
+
+    // public class GroundVehicleMap : CsvHelper.Configuration.ClassMap<GroundVehicle> {
+    //     public GroundVehicleMap() {
+    //         Map(m => m.Name).Index(0).Name("name");
+    //         Map(m => m.Nation).Index(1).Name("nation");
+    //         Map(m => m.foldered).Index(2).Name("foldered");
+    //         Map(m => m.rank).Index(3).Name("rank");
+    //         Map(m => m.role).Index(4).Name("role");
+    //         Map(m => m.br[1]).Index(5).Name("br");
+    //         Map(m => m.mainArmament).Index(6).Name("mainArm");
+    //     }
+    // }
 }
