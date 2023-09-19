@@ -3,7 +3,7 @@ using HtmlAgilityPack;
 
 namespace WarThunder {
     class Nation {
-        private List<GroundVehicle> GroundVehicles;
+        public List<GroundVehicle> GroundVehicles;
         private string name;
         private HtmlDocument ground_tree;
         private static Regex groundVehiclePattern = new Regex("(  ){0,1}<div class=\"tree-item\">.*href=\"\\/([^\"]*)\" title=\"([^\"]*)\"[^\\r\\n]*", RegexOptions.Compiled);

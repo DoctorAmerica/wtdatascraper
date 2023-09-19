@@ -1,18 +1,20 @@
-// using System;
-// using CsvHelper;
-// using System.Globalization;
+using System;
+using CsvHelper;
+using System.Globalization;
+using WarThunder;
+using System.Text;
 
-// namespace utils {
+namespace utils {
 
-//     class CSV {
+    class CSV {
 
-//         public static void WriteToCSV(List<WarThunder.GroundVehicle> vehicles, string filepath) {
-
-//             using( var writer = new StreamWriter(filepath))
-//             using( var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) {
-//                 csv.Context.RegisterClassMap<WarThunder.GroundVehicleMap>();
-//                 csv.WriterRecords(vehicles);
-//             }
-//         }
-//     }
-// }
+        public static void writeToCsv(List<GroundVehicle> data, string filepath) {
+            var stream = new StreamWriter(filepath, false, Encoding.UTF8);
+            var csv = new CsvWriter( stream, CultureInfo.InvariantCulture );
+            csv.Context.RegisterClassMap<GroundVehicleMap>();
+            csv.WriteRecords(data);
+            stream.Flush();
+            stream.Close();
+        }
+    }
+}

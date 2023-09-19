@@ -7,17 +7,17 @@ using utils;
 namespace WarThunder {
     public class GroundVehicle {
         // Tree info
-        string name;
-        string url;
-        string nation;
-        bool foldered;
+        public string name;
+        public string url;
+        public string nation;
+        public bool foldered;
         bool additionalInfo;
         // Additional data
-        int rank;
+        public int rank;
         bool premium;
-        string role;
+        public string role;
         bool squadron;
-        float[] br = new float[3]; // AB/RB/SB
+        public float[] br = new float[3]; // AB/RB/SB
         float[] forwardSpeed = new float[2]; // AB/RB+SB
         float[] reverseSpeed = new float[2]; // AB/RB+SB
         float weight;
@@ -27,7 +27,7 @@ namespace WarThunder {
         float[] pwrWtUpgraded = new float[2]; // AB/RB+SB
         float[] repairCost = new float[3];  // AB/RB/SB
         string[] features;
-        string mainArmament;
+        public string mainArmament;
         
 
         public GroundVehicle(string name, string url, string nation, bool foldered) {
@@ -191,15 +191,15 @@ namespace WarThunder {
         }
     }
 
-    // public class GroundVehicleMap : CsvHelper.Configuration.ClassMap<GroundVehicle> {
-    //     public GroundVehicleMap() {
-    //         Map(m => m.Name).Index(0).Name("name");
-    //         Map(m => m.Nation).Index(1).Name("nation");
-    //         Map(m => m.foldered).Index(2).Name("foldered");
-    //         Map(m => m.rank).Index(3).Name("rank");
-    //         Map(m => m.role).Index(4).Name("role");
-    //         Map(m => m.br[1]).Index(5).Name("br");
-    //         Map(m => m.mainArmament).Index(6).Name("mainArm");
-    //     }
-    // }
+    public class GroundVehicleMap : CsvHelper.Configuration.ClassMap<GroundVehicle> {
+        public GroundVehicleMap() {
+            Map(m => m.name).Index(0).Name("name");
+            Map(m => m.nation).Index(1).Name("nation");
+            Map(m => m.foldered).Index(2).Name("foldered");
+            Map(m => m.rank).Index(3).Name("rank");
+            Map(m => m.role).Index(4).Name("role");
+            Map(m => m.br).Index(5).Name("br");
+            Map(m => m.mainArmament).Index(6).Name("mainArm");
+        }
+    }
 }
