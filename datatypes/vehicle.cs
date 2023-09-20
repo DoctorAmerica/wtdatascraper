@@ -139,7 +139,7 @@ namespace WarThunder {
             //TODO Purchase Price
             //TODO Crew Train
             //TODO Research Points
-            //TODO Modifiers (SL/RP)
+            //Modifiers (SL/RP)
             Match SLMod = CompReg.SLModifierPtrn.Match(page.Text);
             this.SLModifier[0] = float.Parse(SLMod.Groups[2].Value);
             this.SLModifier[1] = float.Parse(SLMod.Groups[3].Value);
@@ -180,7 +180,7 @@ namespace WarThunder {
             //TODO Ammunition amounts
             //TODOHighest Penetration Round
             //TODO "Best" Ammunition Type
-            //TODO Reload speed
+            //Reload speed
             //TODO Guidance
             //TODO Hull Armor
             //TODO Turret Armor
