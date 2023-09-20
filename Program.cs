@@ -4,7 +4,7 @@ using utils;
 
 namespace Program {
 
-    class main {
+    class WTWikiDataScraper {
 
         static string link = "https://wiki.warthunder.com/Ground_vehicles";
 

@@ -7,17 +7,15 @@ using utils;
 namespace WarThunder {
     public class GroundVehicle {
         // Tree info
-        public string name;
-        public string url;
-        public string nation;
-        public bool foldered;
+        protected string name;
+        string url;
+        protected string nation;
+        protected bool foldered;
         bool additionalInfo;
         // Additional data
-        public int rank;
-        bool premium;
-        public string role;
-        bool squadron;
-        public float[] br = new float[3]; // AB/RB/SB
+        protected int rank;
+        protected string role;
+        protected float[] br = new float[3]; // AB/RB/SB
         float[] forwardSpeed = new float[2]; // AB/RB+SB
         float[] reverseSpeed = new float[2]; // AB/RB+SB
         float weight;
@@ -25,9 +23,10 @@ namespace WarThunder {
         float[] enginePowerUpgraded = new float[2]; // AB/RB+SB
         float[] pwrWtStock = new float[2]; // AB/RB+SB
         float[] pwrWtUpgraded = new float[2]; // AB/RB+SB
-        public float[] repairCost = new float[3];  // AB/RB/SB
-        public string[] features;
-        public string mainArmament;
+        protected float[] repairCost = new float[3];  // AB/RB/SB
+        protected string[] features;
+        protected string mainArmament;
+        protected string purchaseType;
         
 
         public GroundVehicle(string name, string url, string nation, bool foldered) {
@@ -65,14 +64,27 @@ namespace WarThunder {
             this.rank = Conversions.RomanToInteger(
                 CompReg.rankPtrn.Match(page.Text).Groups[2].Value);
 
+
             //premium
-            this.premium = CompReg.premiumPtrn.Match(page.Text).Success;
+            if (CompReg.premiumPtrn.Match(page.Text).Success) {
+                if(CompReg.marketPtrn.Match(page.Text).Success) {
+                    this.purchaseType = "Market Premium";
+                } else if (CompReg.packPtrn.Match(page.Text).Success) {
+                    this.purchaseType = "Pack Premium";
+                } else {
+                    this.purchaseType = "Gift Premium";
+                }
+            } else if(CompReg.squadronPtrn.Match(page.Text).Success) {
+                this.purchaseType = "Squadron";
+            } else if(CompReg.giftPtrn.Match(page.Text).Success) {
+                this.purchaseType = "Gift";
+            } else {
+                this.purchaseType = "Tech Tree";
+            }
+
 
             //role
             this.role = CompReg.rolePtrn.Match(page.Text).Groups[3].Value;
-
-            //squadron
-            this.squadron = CompReg.squadronPtrn.Match(page.Text).Success;
 
             //BR
             Match BRs = CompReg.brPtrn.Match(page.Text);
@@ -95,20 +107,20 @@ namespace WarThunder {
             //Power
             //AB
             try {this.enginePowerStock[0] = float.Parse(mobility.Groups[7].Value);}
-            catch(FormatException e) {this.enginePowerStock[0] = -1;}
+            catch(FormatException) {this.enginePowerStock[0] = -1;}
             this.enginePowerUpgraded[0] = float.Parse(mobility.Groups[8].Value);
             //RB/SB
             try {this.enginePowerStock[1] = float.Parse(mobility.Groups[15].Value);}
-            catch(FormatException e) {this.enginePowerStock[1] = -1;}
+            catch(FormatException) {this.enginePowerStock[1] = -1;}
             this.enginePowerUpgraded[1] = float.Parse(mobility.Groups[16].Value);
             //Pwr/Wt
             //AB
             try{this.pwrWtStock[0] = float.Parse(mobility.Groups[9].Value);}
-            catch(FormatException e) {this.pwrWtStock[0] = -1;}
+            catch(FormatException) {this.pwrWtStock[0] = -1;}
             this.pwrWtUpgraded[0] = float.Parse(mobility.Groups[10].Value);
             //RB/SB
             try{this.pwrWtStock[1] = float.Parse(mobility.Groups[17].Value);}
-            catch(FormatException e) {this.pwrWtStock[1] = -1;}
+            catch(FormatException) {this.pwrWtStock[1] = -1;}
             this.pwrWtUpgraded[1] = float.Parse(mobility.Groups[18].Value);
 
             //Repair Cost
@@ -121,36 +133,37 @@ namespace WarThunder {
                 this.repairCost[2] = float.Parse(repairs[2].Groups[2].Value.Replace(" ",""));
             }
             
-            //Purchase Price
-            //Crew Train
-            //Research Points
+            //TODO Purchase Price
+            //TODO Crew Train
+            //TODO Research Points
+            //TODO Modifiers (SL/RP)
 
             //Features
             MatchCollection features = CompReg.featuresPtrn.Matches(page.Text);
             this.features = features.Cast<Match>().Select(m => m.Groups[1].Value).ToArray();
 
-            //Modifications
+            //TODO Modifications
             //Main Armament
             Match mainArm = CompReg.mainArmamentPtrn.Match(page.Text);
-            this.mainArmament = (String.Empty.Equals(mainArm.Groups[1].Value)) ? 
+            this.mainArmament = String.Empty.Equals(mainArm.Groups[1].Value) ? 
                                 mainArm.Groups[2].Value :
                                 mainArm.Groups[1] + " " + mainArm.Groups[2];
 
-            this.mainArmament = this.mainArmament.Replace("_"," ");
+            this.mainArmament = this.mainArmament.Replace("_"," ").Replace("&quot;", "\"");
             this.mainArmament = RegFunc.Replace(this.mainArmament, CompReg.diameterPtrn, CompReg.diameterSub);
             this.mainArmament = RegFunc.Replace(this.mainArmament, CompReg.multipleGunsPtrn, CompReg.multiGunSub);
 
-            //Machine Gun(s)
-            //Additional Armament
-            //Largest Calibre Gun
-            //Ammunition Types
-            //Ammunition amounts
-            //Highest Penetration Round
-            //"Best" Ammunition Type
-            //Reload speed
-            //Guidance
-            //Hull Armor
-            //Turret Armor
+            //TODO Machine Gun(s)
+            //TODO Additional Armament
+            //TODO Largest Calibre Gun
+            //TODO Ammunition Types
+            //TODO Ammunition amounts
+            //TODOHighest Penetration Round
+            //TODO "Best" Ammunition Type
+            //TODO Reload speed
+            //TODO Guidance
+            //TODO Hull Armor
+            //TODO Turret Armor
             //...
             
             additionalInfo = true;
@@ -162,9 +175,8 @@ namespace WarThunder {
                        $"URL: {url}\nNation: {nation}\n"+
                        $"Foldered: {foldered}\n"+
                        $"Rank: {rank}\n"+
-                       $"Premium: {premium}\n"+
+                       $"Premium: {purchaseType}\n"+
                        $"Role: {role}\n"+
-                       $"Squadron: {squadron}\n"+
                        $"Battle Rating(s):\n"+
                        $"\tAB: {br[0]}\n"+
                        $"\tRB: {br[1]}\n"+
@@ -189,9 +201,10 @@ namespace WarThunder {
                 return $"Name: {name}\nURL: {url}\nNation: {nation}\nFoldered: {foldered}\n";
             }
         }
-    }
 
-    sealed class GroundVehicleMap : CsvHelper.Configuration.ClassMap<GroundVehicle> {
+
+
+    sealed public class GroundVehicleMap : CsvHelper.Configuration.ClassMap<GroundVehicle> {
         public GroundVehicleMap() {
             Map(m => m.name).Index(0).Name("name");
             Map(m => m.nation).Index(1).Name("nation");
@@ -205,6 +218,8 @@ namespace WarThunder {
             Map(m => m.repairCost).Index(9).Name("repair_ab");
             Map().Index(10).Name("repair_rb");
             Map().Index(11).Name("repair_sb");
+            Map(m => m.purchaseType).Index(12).Name("purchase_type");
         }
+    }
     }
 }
