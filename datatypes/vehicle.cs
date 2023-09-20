@@ -25,8 +25,8 @@ namespace WarThunder {
         float[] enginePowerUpgraded = new float[2]; // AB/RB+SB
         float[] pwrWtStock = new float[2]; // AB/RB+SB
         float[] pwrWtUpgraded = new float[2]; // AB/RB+SB
-        float[] repairCost = new float[3];  // AB/RB/SB
-        string[] features;
+        public float[] repairCost = new float[3];  // AB/RB/SB
+        public string[] features;
         public string mainArmament;
         
 
@@ -191,15 +191,20 @@ namespace WarThunder {
         }
     }
 
-    public class GroundVehicleMap : CsvHelper.Configuration.ClassMap<GroundVehicle> {
+    sealed class GroundVehicleMap : CsvHelper.Configuration.ClassMap<GroundVehicle> {
         public GroundVehicleMap() {
             Map(m => m.name).Index(0).Name("name");
             Map(m => m.nation).Index(1).Name("nation");
             Map(m => m.foldered).Index(2).Name("foldered");
             Map(m => m.rank).Index(3).Name("rank");
             Map(m => m.role).Index(4).Name("role");
-            Map(m => m.br).Index(5).Name("br");
-            Map(m => m.mainArmament).Index(6).Name("mainArm");
+            Map(m => m.br).Index(5).Name("br_ab");
+            Map().Index(6).Name("br_rb");
+            Map().Index(7).Name("br_sb");
+            Map(m => m.mainArmament).Index(8).Name("mainArm");
+            Map(m => m.repairCost).Index(9).Name("repair_ab");
+            Map().Index(10).Name("repair_rb");
+            Map().Index(11).Name("repair_sb");
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Program {
                 }
             }
             List<WarThunder.GroundVehicle> vehicles = nations.SelectMany(x => x.GroundVehicles).ToList();
-            CSV.writeToCsv(nation.GroundVehicles, "out.csv");
+            CSV.writeToCsv(vehicles, "out.csv");
         }
     }
 }
