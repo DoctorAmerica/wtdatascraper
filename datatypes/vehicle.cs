@@ -133,16 +133,16 @@ namespace WarThunder {
                 this.repairCost[2] = float.Parse(repairs[2].Groups[2].Value.Replace(" ",""));
             }
             
-            //Purchase Price
-            //Crew Train
-            //Research Points
-            //Modifiers (SL/RP)
+            //TODO Purchase Price
+            //TODO Crew Train
+            //TODO Research Points
+            //TODO Modifiers (SL/RP)
 
             //Features
             MatchCollection features = CompReg.featuresPtrn.Matches(page.Text);
             this.features = features.Cast<Match>().Select(m => m.Groups[1].Value).ToArray();
 
-            //Modifications
+            //TODO Modifications
             //Main Armament
             Match mainArm = CompReg.mainArmamentPtrn.Match(page.Text);
             this.mainArmament = String.Empty.Equals(mainArm.Groups[1].Value) ? 
@@ -153,17 +153,17 @@ namespace WarThunder {
             this.mainArmament = RegFunc.Replace(this.mainArmament, CompReg.diameterPtrn, CompReg.diameterSub);
             this.mainArmament = RegFunc.Replace(this.mainArmament, CompReg.multipleGunsPtrn, CompReg.multiGunSub);
 
-            //Machine Gun(s)
-            //Additional Armament
-            //Largest Calibre Gun
-            //Ammunition Types
-            //Ammunition amounts
-            //Highest Penetration Round
-            //"Best" Ammunition Type
-            //Reload speed
-            //Guidance
-            //Hull Armor
-            //Turret Armor
+            //TODO Machine Gun(s)
+            //TODO Additional Armament
+            //TODO Largest Calibre Gun
+            //TODO Ammunition Types
+            //TODO Ammunition amounts
+            //TODOHighest Penetration Round
+            //TODO "Best" Ammunition Type
+            //TODO Reload speed
+            //TODO Guidance
+            //TODO Hull Armor
+            //TODO Turret Armor
             //...
             
             additionalInfo = true;
