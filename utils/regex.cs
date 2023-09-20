@@ -77,6 +77,14 @@ namespace utils {
             "^([0-9]*) x "
         );
         public static Func<Match, string> multiGunSub = (Match m) => m.Groups[1].Value + "x ";
+        public static Regex SLModifierPtrn = new Regex(
+            """<div class="specs_char_line indent"><span class="name"></span><span class="value">(<img alt="Talisman\.png" src="/images/thumb/9/99/Talisman\.png/18px-Talisman\.png" width="18" height="18" class="ttx-img-talisman" srcset="/images/9/99/Talisman\.png 1\.5x" data-file-width="24" data-file-height="24" /> 2 ×&#160;)?([0-9]*?) / ([0-9]*?) / ([0-9]*?)&#160;% <a href="/Silver_Lions" title="Silver Lions"><img alt="Sl icon\.png" src="/images/thumb/0/0f/Sl_icon\.png/19px-Sl_icon\.png" width="19" height="20" srcset="/images/thumb/0/0f/Sl_icon\.png/28px-Sl_icon\.png 1\.5x, /images/0/0f/Sl_icon\.png 2x" data-file-width="32" data-file-height="34" /></a></span></div>""",
+            RegexOptions.Compiled
+        );
+        public static Regex RPModifierPtrn = new Regex(
+            """<div class="specs_char_line indent"><span class="name"></span><span class="value">(<img alt="Talisman\.png" src="/images/thumb/9/99/Talisman\.png/18px-Talisman\.png" width="18" height="18" class="ttx-img-talisman" srcset="/images/9/99/Talisman\.png 1\.5x" data-file-width="24" data-file-height="24" /> 2 ×&#160;)?([0-9]*?) / ([0-9]*?) / ([0-9]*?)&#160;% <a href="/Research_Points" title="Research Points"><img alt="Rp icon\.png" src="/images/thumb/2/21/Rp_icon\.png/13px-Rp_icon\.png" width="13" height="20" srcset="/images/thumb/2/21/Rp_icon\.png/20px-Rp_icon\.png 1\.5x, /images/2/21/Rp_icon\.png 2x" data-file-width="23" data-file-height="34" /></a></span></div>""",
+            RegexOptions.Compiled
+        );
     }
     class RegFunc {
         public static string Replace(string input, Regex reg, Func<Match, string> replace) {
