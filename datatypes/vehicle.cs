@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using CsvHelper;
 using utils;
+using System.Runtime.CompilerServices;
 
 namespace WarThunder {
     public class GroundVehicle {
@@ -27,6 +28,9 @@ namespace WarThunder {
         protected string[] features;
         protected string mainArmament;
         protected string purchaseType;
+        protected float[] SLModifier = new float[3];
+        protected float[] RPModifier = new float[3];
+        protected float[] mainArmReload = new float[2];
         
 
         public GroundVehicle(string name, string url, string nation, bool foldered) {
@@ -150,7 +154,24 @@ namespace WarThunder {
             //TODO Purchase Price
             //TODO Crew Train
             //TODO Research Points
-            //TODO Modifiers (SL/RP)
+            //Modifiers (SL/RP)
+            Match SLMod = CompReg.SLModifierPtrn.Match(page.Text);
+            this.SLModifier[0] = float.Parse(SLMod.Groups[2].Value);
+            this.SLModifier[1] = float.Parse(SLMod.Groups[3].Value);
+            this.SLModifier[2] = float.Parse(SLMod.Groups[4].Value);
+
+            
+            Match RPMod = CompReg.RPModifierPtrn.Match(page.Text);
+            this.RPModifier[0] = float.Parse(RPMod.Groups[2].Value);
+            this.RPModifier[1] = float.Parse(RPMod.Groups[3].Value);
+            this.RPModifier[2] = float.Parse(RPMod.Groups[4].Value);
+            
+            if(!RPMod.Groups[1].Value.Equals(String.Empty)) {
+                for(int i = 0; i < 3; i++) {
+                    this.SLModifier[i] *= 2;
+                    this.RPModifier[i] *= 2;
+                }
+            }
             //TODO Modifications
             //TODO Machine Gun(s)
             //TODO Additional Armament
@@ -159,7 +180,15 @@ namespace WarThunder {
             //TODO Ammunition amounts
             //TODOHighest Penetration Round
             //TODO "Best" Ammunition Type
-            //TODO Reload speed
+            //Reload speed
+            MatchCollection reloads = CompReg.reloadPtrn.Matches(page.Text);
+            try {
+                this.mainArmReload[0] = float.Parse(reloads[0].Groups[1].Value);
+                this.mainArmReload[1] = float.Parse(reloads[0].Groups[2].Value);
+            } catch (FormatException) {
+                this.mainArmReload[0] = this.mainArmReload[1] = float.Parse(reloads[0].Groups[3].Value);
+            }
+
             //TODO Guidance
             //TODO Hull Armor
             //TODO Turret Armor
@@ -194,8 +223,13 @@ namespace WarThunder {
                        $"\tAB: {repairCost[0]} SL\n"+
                        $"\tRB: {repairCost[1]} SL\n"+
                        $"\tSB: {repairCost[2]} SL\n"+
+                       $"Modifiers:\n"+
+                       $"\tAB: {SLModifier[0]}% SL / {RPModifier[0]}% RP\n"+
+                       $"\tRB: {SLModifier[1]}% SL / {RPModifier[0]}% RP\n"+
+                       $"\tSB: {SLModifier[2]}% SL / {RPModifier[0]}% RP\n"+
                        $"Features: {string.Join(", ", features)}\n"+
-                       $"Main Armament: {mainArmament}\n";
+                       $"Main Armament: {mainArmament}\n"+
+                       $"Main Armament reload: {mainArmReload[0]} -> {mainArmReload[1]}";
             } else {
                 return $"Name: {name}\nURL: {url}\nNation: {nation}\nFoldered: {foldered}\n";
             }
@@ -218,6 +252,14 @@ namespace WarThunder {
             Map().Index(10).Name("repair_rb");
             Map().Index(11).Name("repair_sb");
             Map(m => m.purchaseType).Index(12).Name("purchase_type");
+            Map(m => m.SLModifier).Index(13).Name("sl_mod_ab");
+            Map().Index(14).Name("sl_mod_rb");
+            Map().Index(15).Name("sl_mod_sb");
+            Map(m => m.RPModifier).Index(16).Name("rp_mod_ab");
+            Map().Index(17).Name("rp_mod_rb");
+            Map().Index(18).Name("rp_mod_sb");
+            Map(m => m.mainArmReload).Index(19).Name("main_reload_base");
+            Map().Index(20).Name("main_reload_upgraded");
         }
     }
     }

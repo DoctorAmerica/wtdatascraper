@@ -4,3 +4,4 @@ obj/
 .git/
 .netcoredbg_hist
 *.csv
+*.html
