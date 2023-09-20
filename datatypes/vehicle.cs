@@ -136,6 +136,7 @@ namespace WarThunder {
             //Purchase Price
             //Crew Train
             //Research Points
+            //Modifiers (SL/RP)
 
             //Features
             MatchCollection features = CompReg.featuresPtrn.Matches(page.Text);
@@ -148,7 +149,7 @@ namespace WarThunder {
                                 mainArm.Groups[2].Value :
                                 mainArm.Groups[1] + " " + mainArm.Groups[2];
 
-            this.mainArmament = this.mainArmament.Replace("_"," ");
+            this.mainArmament = this.mainArmament.Replace("_"," ").Replace("&quot;", "\"");
             this.mainArmament = RegFunc.Replace(this.mainArmament, CompReg.diameterPtrn, CompReg.diameterSub);
             this.mainArmament = RegFunc.Replace(this.mainArmament, CompReg.multipleGunsPtrn, CompReg.multiGunSub);
 
