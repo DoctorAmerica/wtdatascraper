@@ -1,0 +1,53 @@
+---
+title: "Byeah"
+output: html_document
+date: "2023-09-20"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+library(GGally)
+library(ggfortify)
+library(lindia)
+```
+
+```{r}
+dater <- read.csv("out.csv")
+ggplot(data=dater, aes(x=br_rb, y=repair_rb, color=role)) +
+  geom_point() +
+  facet_wrap(~ nation) +
+  xlab("BR") +
+  ylab("Repair cost")
+```
+
+```{r}
+data.scoped <- dater %>%
+  select(c("nation","role","br_rb","repair_rb","purchase_type","sl_mod_rb","rp_mod_rb","main_reload_upgraded"))
+ggpairs(data.scoped)
+```
+
+```{r}
+stat1 <- lm(repair_rb+1 ~ purchase_type+(nation+role)*br_rb*log(main_reload_upgraded)*sl_mod_rb*rp_mod_rb, data=data.scoped)
+summary(stat1)
+autoplot(stat1)
+```
+
+```{r}
+gg_boxcox(stat1) +
+  theme_bw()
+```
+
+```{r}
+stat2 <- lm((repair_rb+1)^0.5 ~ purchase_type+(nation+role)*br_rb*log(main_reload_upgraded)*sl_mod_rb*rp_mod_rb, data=data.scoped)
+summary(stat2)
+autoplot(stat2)
+```
+
+```{r}
+predict(stat2, newdata = data.frame(nation = c("USSR","Germany","USA","Britain","Sweden","France"),role = c("Medium","Medium","Medium","Medium","Medium","Medium"),br_rb = c(11.7, 11.7, 11.7, 11.7, 11.7, 11.7), purchase_type = c("Tech Tree","Tech Tree","Tech Tree","Tech Tree","Tech Tree","Tech Tree"), main_reload_upgraded = c(3.0,3.0,3.0,3.0,3.0,3.0), sl_mod_rb = c(200,200,200,200,200,200), rp_mod_rb = c(220,220,220,220,220,220)))^2 - 1
+```
+
+```{r}
+```
