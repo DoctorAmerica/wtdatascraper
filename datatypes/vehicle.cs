@@ -95,20 +95,20 @@ namespace WarThunder {
             //Power
             //AB
             try {this.enginePowerStock[0] = float.Parse(mobility.Groups[7].Value);}
-            catch(FormatException e) {this.enginePowerStock[0] = -1;}
+            catch(FormatException) {this.enginePowerStock[0] = -1;}
             this.enginePowerUpgraded[0] = float.Parse(mobility.Groups[8].Value);
             //RB/SB
             try {this.enginePowerStock[1] = float.Parse(mobility.Groups[15].Value);}
-            catch(FormatException e) {this.enginePowerStock[1] = -1;}
+            catch(FormatException) {this.enginePowerStock[1] = -1;}
             this.enginePowerUpgraded[1] = float.Parse(mobility.Groups[16].Value);
             //Pwr/Wt
             //AB
             try{this.pwrWtStock[0] = float.Parse(mobility.Groups[9].Value);}
-            catch(FormatException e) {this.pwrWtStock[0] = -1;}
+            catch(FormatException) {this.pwrWtStock[0] = -1;}
             this.pwrWtUpgraded[0] = float.Parse(mobility.Groups[10].Value);
             //RB/SB
             try{this.pwrWtStock[1] = float.Parse(mobility.Groups[17].Value);}
-            catch(FormatException e) {this.pwrWtStock[1] = -1;}
+            catch(FormatException) {this.pwrWtStock[1] = -1;}
             this.pwrWtUpgraded[1] = float.Parse(mobility.Groups[18].Value);
 
             //Repair Cost
