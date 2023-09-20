@@ -86,7 +86,7 @@ namespace utils {
             RegexOptions.Compiled
         );
         public static Regex reloadPtrn = new Regex(
-            """<div class="specs_char_line indent"><span class="name"></span><span class="value">([0-9.]*?) → ([0-9.]*?) s</span></div>""",
+            """<div class="specs_char_line indent"><span class="name"></span><span class="value">([0-9.]*?) → ([0-9.]*?) s</span></div>|<div class="specs_char_line head"><span class="name">Reload</span><span class="value">([0-9.]*?) s</span></div>""",
             RegexOptions.Compiled
         );
     }

@@ -30,6 +30,7 @@ namespace WarThunder {
         protected string purchaseType;
         protected float[] SLModifier = new float[3];
         protected float[] RPModifier = new float[3];
+        protected float[] mainArmReload = new float[2];
         
 
         public GroundVehicle(string name, string url, string nation, bool foldered) {
@@ -181,6 +182,14 @@ namespace WarThunder {
             //TODOHighest Penetration Round
             //TODO "Best" Ammunition Type
             //Reload speed
+            MatchCollection reloads = CompReg.reloadPtrn.Matches(page.Text);
+            try {
+                this.mainArmReload[0] = float.Parse(reloads[0].Groups[1].Value);
+                this.mainArmReload[1] = float.Parse(reloads[0].Groups[2].Value);
+            } catch (FormatException) {
+                this.mainArmReload[0] = this.mainArmReload[1] = float.Parse(reloads[0].Groups[3].Value);
+            }
+
             //TODO Guidance
             //TODO Hull Armor
             //TODO Turret Armor
@@ -220,7 +229,8 @@ namespace WarThunder {
                        $"\tRB: {SLModifier[1]}% SL / {RPModifier[0]}% RP\n"+
                        $"\tSB: {SLModifier[2]}% SL / {RPModifier[0]}% RP\n"+
                        $"Features: {string.Join(", ", features)}\n"+
-                       $"Main Armament: {mainArmament}\n";
+                       $"Main Armament: {mainArmament}\n"+
+                       $"Main Armament reload: {mainArmReload[0]} -> {mainArmReload[1]}";
             } else {
                 return $"Name: {name}\nURL: {url}\nNation: {nation}\nFoldered: {foldered}\n";
             }
@@ -249,6 +259,8 @@ namespace WarThunder {
             Map(m => m.RPModifier).Index(16).Name("rp_mod_ab");
             Map().Index(17).Name("rp_mod_rb");
             Map().Index(18).Name("rp_mod_sb");
+            Map(m => m.mainArmReload).Index(19).Name("main_reload_base");
+            Map().Index(20).Name("main_reload_upgraded");
         }
     }
     }
