@@ -7,17 +7,15 @@ using utils;
 namespace WarThunder {
     public class GroundVehicle {
         // Tree info
-        public string name;
-        public string url;
-        public string nation;
-        public bool foldered;
+        protected string name;
+        string url;
+        protected string nation;
+        protected bool foldered;
         bool additionalInfo;
         // Additional data
-        public int rank;
-        bool premium;
-        public string role;
-        bool squadron;
-        public float[] br = new float[3]; // AB/RB/SB
+        protected int rank;
+        protected string role;
+        protected float[] br = new float[3]; // AB/RB/SB
         float[] forwardSpeed = new float[2]; // AB/RB+SB
         float[] reverseSpeed = new float[2]; // AB/RB+SB
         float weight;
@@ -25,9 +23,10 @@ namespace WarThunder {
         float[] enginePowerUpgraded = new float[2]; // AB/RB+SB
         float[] pwrWtStock = new float[2]; // AB/RB+SB
         float[] pwrWtUpgraded = new float[2]; // AB/RB+SB
-        public float[] repairCost = new float[3];  // AB/RB/SB
-        public string[] features;
-        public string mainArmament;
+        protected float[] repairCost = new float[3];  // AB/RB/SB
+        protected string[] features;
+        protected string mainArmament;
+        protected string purchaseType;
         
 
         public GroundVehicle(string name, string url, string nation, bool foldered) {
@@ -65,14 +64,27 @@ namespace WarThunder {
             this.rank = Conversions.RomanToInteger(
                 CompReg.rankPtrn.Match(page.Text).Groups[2].Value);
 
+
             //premium
-            this.premium = CompReg.premiumPtrn.Match(page.Text).Success;
+            if (CompReg.premiumPtrn.Match(page.Text).Success) {
+                if(CompReg.marketPtrn.Match(page.Text).Success) {
+                    this.purchaseType = "Market Premium";
+                } else if (CompReg.packPtrn.Match(page.Text).Success) {
+                    this.purchaseType = "Pack Premium";
+                } else {
+                    this.purchaseType = "Gift Premium";
+                }
+            } else if(CompReg.squadronPtrn.Match(page.Text).Success) {
+                this.purchaseType = "Squadron";
+            } else if(CompReg.giftPtrn.Match(page.Text).Success) {
+                this.purchaseType = "Gift";
+            } else {
+                this.purchaseType = "Tech Tree";
+            }
+
 
             //role
             this.role = CompReg.rolePtrn.Match(page.Text).Groups[3].Value;
-
-            //squadron
-            this.squadron = CompReg.squadronPtrn.Match(page.Text).Success;
 
             //BR
             Match BRs = CompReg.brPtrn.Match(page.Text);
@@ -132,7 +144,7 @@ namespace WarThunder {
             //Modifications
             //Main Armament
             Match mainArm = CompReg.mainArmamentPtrn.Match(page.Text);
-            this.mainArmament = (String.Empty.Equals(mainArm.Groups[1].Value)) ? 
+            this.mainArmament = String.Empty.Equals(mainArm.Groups[1].Value) ? 
                                 mainArm.Groups[2].Value :
                                 mainArm.Groups[1] + " " + mainArm.Groups[2];
 
@@ -162,9 +174,8 @@ namespace WarThunder {
                        $"URL: {url}\nNation: {nation}\n"+
                        $"Foldered: {foldered}\n"+
                        $"Rank: {rank}\n"+
-                       $"Premium: {premium}\n"+
+                       $"Premium: {purchaseType}\n"+
                        $"Role: {role}\n"+
-                       $"Squadron: {squadron}\n"+
                        $"Battle Rating(s):\n"+
                        $"\tAB: {br[0]}\n"+
                        $"\tRB: {br[1]}\n"+
@@ -189,9 +200,10 @@ namespace WarThunder {
                 return $"Name: {name}\nURL: {url}\nNation: {nation}\nFoldered: {foldered}\n";
             }
         }
-    }
 
-    sealed class GroundVehicleMap : CsvHelper.Configuration.ClassMap<GroundVehicle> {
+
+
+    sealed public class GroundVehicleMap : CsvHelper.Configuration.ClassMap<GroundVehicle> {
         public GroundVehicleMap() {
             Map(m => m.name).Index(0).Name("name");
             Map(m => m.nation).Index(1).Name("nation");
@@ -205,6 +217,8 @@ namespace WarThunder {
             Map(m => m.repairCost).Index(9).Name("repair_ab");
             Map().Index(10).Name("repair_rb");
             Map().Index(11).Name("repair_sb");
+            Map(m => m.purchaseType).Index(12).Name("purchase_type");
         }
+    }
     }
 }

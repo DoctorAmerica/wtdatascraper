@@ -10,12 +10,24 @@ namespace utils {
             "<a href=\"([^\"]*)\" title=\"([^\"]*)\">(PREMIUM)<\\/a>",
             RegexOptions.Compiled
         );
-        public static Regex rolePtrn = new Regex(
-            "<a href=\"\\/Category:([a-zA-Z_\\-]*)\" title=\"Category:([a-zA-Z \\-]*)\">(Light|Medium|Heavy|SPAA|Tank destroyer)( tanks?)?<\\/a>",
-            RegexOptions.Compiled
-        );
         public static Regex squadronPtrn = new Regex(
             "<a href=\"([^\"]*)\" title=\"([^\"]*)\">(SQUADRON)<\\/a>",
+            RegexOptions.Compiled
+        );
+        public static Regex giftPtrn = new Regex(
+            """<a href="/Category:Gift_ground_vehicles" title="Category:Gift ground vehicles">Bundle or Gift</a>""",
+            RegexOptions.Compiled
+        );
+        public static Regex marketPtrn = new Regex(
+            "<span>MARKET</span>",
+            RegexOptions.Compiled
+        );
+        public static Regex packPtrn = new Regex(
+            "<span>STORE</span>",
+            RegexOptions.Compiled
+        );
+        public static Regex rolePtrn = new Regex(
+            "<a href=\"\\/Category:([a-zA-Z_\\-]*)\" title=\"Category:([a-zA-Z \\-]*)\">(Light|Medium|Heavy|SPAA|Tank destroyer)( tanks?)?<\\/a>",
             RegexOptions.Compiled
         );
         public static Regex brPtrn = new Regex(

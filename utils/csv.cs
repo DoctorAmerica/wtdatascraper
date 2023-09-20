@@ -11,7 +11,7 @@ namespace utils {
         public static void writeToCsv(List<GroundVehicle> data, string filepath) {
             var stream = new StreamWriter(filepath, false, Encoding.UTF8);
             var csv = new CsvWriter( stream, CultureInfo.InvariantCulture );
-            csv.Context.RegisterClassMap<GroundVehicleMap>();
+            csv.Context.RegisterClassMap<GroundVehicle.GroundVehicleMap>();
             csv.WriteRecords(data);
             stream.Flush();
             stream.Close();
