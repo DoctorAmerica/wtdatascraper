@@ -45,7 +45,7 @@ namespace WarThunder {
                             match.Groups[3].Value, // name
                             "https://wiki.warthunder.com/"+match.Groups[2].Value, // link/url
                             this.name, // nation
-                            (match.Groups[1] is not null && match.Groups[1].Value is not null && match.Groups[1].Value == "  ") // foldered
+                            match.Groups[1] is not null && match.Groups[1].Value is not null && match.Groups[1].Value == "  " // foldered
                         )
                     );
                 } catch (Exception e) {

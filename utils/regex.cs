@@ -65,7 +65,7 @@ namespace utils {
             RegexOptions.Compiled
         );
         public static Regex mainArmamentPtrn = new Regex(
-            """<h3><span class="mw-headline" id="Main_armament">Main armament<\/span><\/h3>\n<div class="specs_info weapon">\n<div class="specs_name_weapon">([0-9]*? x)?(?:&#32;)?(?:<a href="\/)?(.*?)(?:" class="mw-redirect)?(?:" title=".*?">.*?<\/a>)?<\/div>""",
+            """<h3><span class="mw-headline" id="Main_armament">Main armament<\/span><\/h3>(?:\n.*)?\n<div class="specs_info weapon">\n<div class="specs_name_weapon">([0-9]*? x)?(?:&#32;)?(?:<a href="\/)?(.*?)(?:" class="mw-redirect)?(?:" title=".*?">.*?<\/a>)?<\/div>""",
             RegexOptions.Compiled
         );
         public static Regex diameterPtrn = new Regex(

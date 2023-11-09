@@ -196,7 +196,7 @@ namespace WarThunder {
                     this.mainArmDiameter = 160;
                 } else if (this.mainArmament.Contains("Swingfire")) {
                     this.mainArmDiameter = 170;
-                } else if (this.mainArmament.Contains("Starstreak")) {
+                } else if (this.mainArmament.Contains("Starstreak") || this.mainArmament.Contains("9M114")) {
                     this.mainArmDiameter = 130;
                 } else if (this.mainArmament.Contains("9M331")) {
                     this.mainArmDiameter = 239;
@@ -206,12 +206,18 @@ namespace WarThunder {
                     this.mainArmDiameter = 90;
                 } else if (this.mainArmament.Contains("Rbs 70")) {
                     this.mainArmDiameter = 105;
-                } else if (this.mainArmament.Contains("Tager")) {
+                } else if (this.mainArmament.Contains("Tager") || this.mainArmament.Contains("LFK SS.11")) {
                     this.mainArmDiameter = 164;
                 } else if (this.mainArmament.Contains("MGM-166")) {
                     this.mainArmDiameter = 162;
-                } else if (this.mainArmament.Contains("Type 64")) {
+                } else if (this.mainArmament.Contains("Type 64") || this.mainArmament.Contains("9M37M")) {
                     this.mainArmDiameter = 120;
+                } else if (this.mainArmament.Contains("Fliegerfaust 2 Stinger")) {
+                    this.mainArmDiameter = 70;
+                } else if (this.mainArmament.Contains("3M7")) {
+                    this.mainArmDiameter = 180;
+                } else if (this.mainArmament.Contains("9M123")) {
+                    this.mainArmDiameter = 155;
                 }
             }
 
