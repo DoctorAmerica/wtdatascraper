@@ -69,7 +69,7 @@ namespace utils {
             RegexOptions.Compiled
         );
         public static Regex diameterPtrn = new Regex(
-            "([0-9]*) mm",
+            "([0-9.]*) ?mm",
             RegexOptions.Compiled
         );
         public static Func<Match, string> diameterSub = (Match m) => m.Groups[1].Value + "mm";

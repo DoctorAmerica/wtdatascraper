@@ -17,6 +17,7 @@ namespace Program {
                 WarThunder.Nation nation = new WarThunder.Nation(match.Groups[1].Value);
                 nations.Add(nation);
             }
+            // nations.Add(new WarThunder.Nation("USA"));
             foreach(WarThunder.Nation nation in nations) {
                 foreach(WarThunder.GroundVehicle vehicle in nation.GetGroundVehicles()) {
                     vehicle.GetInfoFromPage();

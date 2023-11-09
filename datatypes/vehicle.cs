@@ -4,6 +4,7 @@ using HtmlAgilityPack;
 using CsvHelper;
 using utils;
 using System.Runtime.CompilerServices;
+using System.Linq.Expressions;
 
 namespace WarThunder {
     public class GroundVehicle {
@@ -31,6 +32,8 @@ namespace WarThunder {
         protected float[] SLModifier = new float[3];
         protected float[] RPModifier = new float[3];
         protected float[] mainArmReload = new float[2];
+
+        protected float mainArmDiameter;
         
 
         public GroundVehicle(string name, string url, string nation, bool foldered) {
@@ -174,12 +177,47 @@ namespace WarThunder {
             this.mainArmament = RegFunc.Replace(this.mainArmament, CompReg.diameterPtrn, CompReg.diameterSub);
             this.mainArmament = RegFunc.Replace(this.mainArmament, CompReg.multipleGunsPtrn, CompReg.multiGunSub);
 
+            //Main Armament Diameter
+            try {
+                this.mainArmDiameter = (float)Double.Parse(CompReg.diameterPtrn.Match(mainArmament).Groups[1].Value);
+            } catch (Exception) {
+                if(this.mainArmament.Contains("MIM-72")) {
+                    this.mainArmDiameter = 127;
+                } else if(this.mainArmament.Contains("Roland") || this.mainArmament.Contains("VT1")) {
+                    this.mainArmDiameter = 165;
+                } else if (this.mainArmament.Contains("TOW")
+                        || this.mainArmament.Contains("MIM146")
+                        || this.mainArmament.Contains("Rbs 55")) {
+                    this.mainArmDiameter = 152;
+                } else if (this.mainArmament.Contains("Type 91")) {
+                    this.mainArmDiameter = 80;
+                } else if (this.mainArmament.Contains("Type 81")) {
+                    this.mainArmDiameter = 160;
+                } else if (this.mainArmament.Contains("Swingfire")) {
+                    this.mainArmDiameter = 170;
+                } else if (this.mainArmament.Contains("Starstreak")) {
+                    this.mainArmDiameter = 130;
+                } else if (this.mainArmament.Contains("9M331")) {
+                    this.mainArmDiameter = 239;
+                } else if (this.mainArmament.Contains("HOT")) {
+                    this.mainArmDiameter = 136;
+                } else if (this.mainArmament.Contains("Mistral")) {
+                    this.mainArmDiameter = 90;
+                } else if (this.mainArmament.Contains("Rbs 70")) {
+                    this.mainArmDiameter = 105;
+                } else if (this.mainArmament.Contains("Tager")) {
+                    this.mainArmDiameter = 164;
+                } else if (this.mainArmament.Contains("MGM-166")) {
+                    this.mainArmDiameter = 162;
+                }
+            }
+
             //TODO Machine Gun(s)
             //TODO Additional Armament
             //TODO Largest Calibre Gun
             //TODO Ammunition Types
             //TODO Ammunition amounts
-            //TODOHighest Penetration Round
+            //TODO Highest Penetration Round
             //TODO "Best" Ammunition Type
             //Reload speed
             MatchCollection reloads = CompReg.reloadPtrn.Matches(page.Text);
@@ -230,7 +268,8 @@ namespace WarThunder {
                        $"\tSB: {SLModifier[2]}% SL / {RPModifier[0]}% RP\n"+
                        $"Features: {string.Join(", ", features)}\n"+
                        $"Main Armament: {mainArmament}\n"+
-                       $"Main Armament reload: {mainArmReload[0]} -> {mainArmReload[1]}";
+                       $"Main Armament reload: {mainArmReload[0]} -> {mainArmReload[1]}\n"+
+                       $"Main Armament Diameter (mm): {mainArmDiameter}\n";
             } else {
                 return $"Name: {name}\nURL: {url}\nNation: {nation}\nFoldered: {foldered}\n";
             }
@@ -261,6 +300,7 @@ namespace WarThunder {
             Map().Index(18).Name("rp_mod_sb");
             Map(m => m.mainArmReload).Index(19).Name("main_reload_base");
             Map().Index(20).Name("main_reload_upgraded");
+            Map(m => m.mainArmDiameter).Index(21).Name("main_arm_diameter");
         }
     }
     }
