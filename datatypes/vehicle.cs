@@ -139,7 +139,21 @@ namespace WarThunder {
                 this.repairCost[1] = float.Parse(repairs[1].Groups[2].Value.Replace(" ",""));
                 this.repairCost[2] = float.Parse(repairs[2].Groups[2].Value.Replace(" ",""));
             }
-            
+
+            //Features
+            MatchCollection features = CompReg.featuresPtrn.Matches(page.Text);
+            this.features = features.Cast<Match>().Select(m => m.Groups[1].Value).ToArray();
+
+            //Main Armament
+            Match mainArm = CompReg.mainArmamentPtrn.Match(page.Text);
+            this.mainArmament = String.Empty.Equals(mainArm.Groups[1].Value) ? 
+                                mainArm.Groups[2].Value :
+                                mainArm.Groups[1] + " " + mainArm.Groups[2];
+
+            this.mainArmament = this.mainArmament.Replace("_"," ").Replace("&quot;", "\"");
+            this.mainArmament = RegFunc.Replace(this.mainArmament, CompReg.diameterPtrn, CompReg.diameterSub);
+            this.mainArmament = RegFunc.Replace(this.mainArmament, CompReg.multipleGunsPtrn, CompReg.multiGunSub);
+
             //TODO Purchase Price
             //TODO Crew Train
             //TODO Research Points
@@ -161,21 +175,7 @@ namespace WarThunder {
                     this.RPModifier[i] *= 2;
                 }
             }
-
-            //Features
-            MatchCollection features = CompReg.featuresPtrn.Matches(page.Text);
-            this.features = features.Cast<Match>().Select(m => m.Groups[1].Value).ToArray();
-
             //TODO Modifications
-            //Main Armament
-            Match mainArm = CompReg.mainArmamentPtrn.Match(page.Text);
-            this.mainArmament = String.Empty.Equals(mainArm.Groups[1].Value) ? 
-                                mainArm.Groups[2].Value :
-                                mainArm.Groups[1] + " " + mainArm.Groups[2];
-
-            this.mainArmament = this.mainArmament.Replace("_"," ").Replace("&quot;", "\"");
-            this.mainArmament = RegFunc.Replace(this.mainArmament, CompReg.diameterPtrn, CompReg.diameterSub);
-            this.mainArmament = RegFunc.Replace(this.mainArmament, CompReg.multipleGunsPtrn, CompReg.multiGunSub);
 
             //Main Armament Diameter
             try {
