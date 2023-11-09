@@ -17,12 +17,19 @@ namespace Program {
                 WarThunder.Nation nation = new WarThunder.Nation(match.Groups[1].Value);
                 nations.Add(nation);
             }
-            // nations.Add(new WarThunder.Nation("USA"));
+            // nations.Add(new WarThunder.Nation("Italy"));
             foreach(WarThunder.Nation nation in nations) {
+                List<WarThunder.GroundVehicle> removed = new List<WarThunder.GroundVehicle>();
                 foreach(WarThunder.GroundVehicle vehicle in nation.GetGroundVehicles()) {
-                    vehicle.GetInfoFromPage();
-                    Console.WriteLine(vehicle);
+                    try {
+                        vehicle.GetInfoFromPage();
+                        Console.WriteLine(vehicle);
+                    } catch (Exception e) {
+                        Console.WriteLine($"{vehicle.GetName()} failed to be acquired and will be removed from the dataset. Investigate at the following link: ({vehicle.GetURL()})\n{e}\n");
+                        removed.Add(vehicle);
+                    }
                 }
+                nation.RemoveGroundVehicle(removed);
             }
             List<WarThunder.GroundVehicle> vehicles = nations.SelectMany(x => x.GroundVehicles).ToList();
             CSV.writeToCsv(vehicles, "out.csv");

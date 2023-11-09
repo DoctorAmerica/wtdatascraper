@@ -272,7 +272,7 @@ namespace WarThunder {
                        $"Features: {string.Join(", ", features)}\n"+
                        $"Main Armament: {mainArmament}\n"+
                        $"Main Armament reload: {mainArmReload[0]} -> {mainArmReload[1]}\n"+
-                       $"Main Armament Diameter (mm): {mainArmDiameter}\n";
+                       $"Main Armament Diameter: {mainArmDiameter}mm\n";
             } else {
                 return $"Name: {name}\nURL: {url}\nNation: {nation}\nFoldered: {foldered}\n";
             }

@@ -21,6 +21,16 @@ namespace WarThunder {
             GroundVehicles.Add(gv);
         }
 
+        public void RemoveGroundVehicle(GroundVehicle gv) {
+            GroundVehicles.Remove(gv);
+        }
+
+        public void RemoveGroundVehicle(List<GroundVehicle> gvs) {
+            foreach (GroundVehicle gv in gvs) {
+                RemoveGroundVehicle(gv);
+            }
+        }
+
         public string GetName(){ 
             return name;
         }
