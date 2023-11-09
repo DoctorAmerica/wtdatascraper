@@ -181,13 +181,14 @@ namespace WarThunder {
             try {
                 this.mainArmDiameter = (float)Double.Parse(CompReg.diameterPtrn.Match(mainArmament).Groups[1].Value);
             } catch (Exception) {
-                if(this.mainArmament.Contains("MIM-72")) {
+                if(this.mainArmament.Contains("MIM-72") || this.mainArmament.Contains("ZT3")) {
                     this.mainArmDiameter = 127;
                 } else if(this.mainArmament.Contains("Roland") || this.mainArmament.Contains("VT1")) {
                     this.mainArmDiameter = 165;
                 } else if (this.mainArmament.Contains("TOW")
                         || this.mainArmament.Contains("MIM146")
-                        || this.mainArmament.Contains("Rbs 55")) {
+                        || this.mainArmament.Contains("Rbs 55")
+                        || this.mainArmament.Contains("HJ-9")) {
                     this.mainArmDiameter = 152;
                 } else if (this.mainArmament.Contains("Type 91")) {
                     this.mainArmDiameter = 80;
@@ -209,6 +210,8 @@ namespace WarThunder {
                     this.mainArmDiameter = 164;
                 } else if (this.mainArmament.Contains("MGM-166")) {
                     this.mainArmDiameter = 162;
+                } else if (this.mainArmament.Contains("Type 64")) {
+                    this.mainArmDiameter = 120;
                 }
             }
 
