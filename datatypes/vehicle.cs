@@ -181,43 +181,48 @@ namespace WarThunder {
             try {
                 this.mainArmDiameter = (float)Double.Parse(CompReg.diameterPtrn.Match(mainArmament).Groups[1].Value);
             } catch (Exception) {
-                if(this.mainArmament.Contains("MIM-72") || this.mainArmament.Contains("ZT3")) {
+                if(this.mainArmament.Contains("Fliegerfaust 2 Stinger")) {
+                    this.mainArmDiameter = 70;
+                } else if(this.mainArmament.Contains("Type 91")) {
+                    this.mainArmDiameter = 80;
+                } else if (this.mainArmament.Contains("Mistral")) {
+                    this.mainArmDiameter = 90;
+                } else if (this.mainArmament.Contains("Rbs 70")) {
+                    this.mainArmDiameter = 105;
+                } else if (this.mainArmament.Contains("Type 64")
+                        || this.mainArmament.Contains("9M37M")) {
+                    this.mainArmDiameter = 120;
+                } else if (this.mainArmament.Contains("MIM-72")
+                        || this.mainArmament.Contains("ZT3")) {
                     this.mainArmDiameter = 127;
-                } else if(this.mainArmament.Contains("Roland") || this.mainArmament.Contains("VT1")) {
-                    this.mainArmDiameter = 165;
+                } else if (this.mainArmament.Contains("Starstreak")
+                        || this.mainArmament.Contains("9M114")) {
+                    this.mainArmDiameter = 130;
+                } else if (this.mainArmament.Contains("HOT")) {
+                    this.mainArmDiameter = 136;
                 } else if (this.mainArmament.Contains("TOW")
                         || this.mainArmament.Contains("MIM146")
                         || this.mainArmament.Contains("Rbs 55")
                         || this.mainArmament.Contains("HJ-9")) {
                     this.mainArmDiameter = 152;
-                } else if (this.mainArmament.Contains("Type 91")) {
-                    this.mainArmDiameter = 80;
-                } else if (this.mainArmament.Contains("Type 81")) {
-                    this.mainArmDiameter = 160;
-                } else if (this.mainArmament.Contains("Swingfire")) {
-                    this.mainArmDiameter = 170;
-                } else if (this.mainArmament.Contains("Starstreak") || this.mainArmament.Contains("9M114")) {
-                    this.mainArmDiameter = 130;
-                } else if (this.mainArmament.Contains("9M331")) {
-                    this.mainArmDiameter = 239;
-                } else if (this.mainArmament.Contains("HOT")) {
-                    this.mainArmDiameter = 136;
-                } else if (this.mainArmament.Contains("Mistral")) {
-                    this.mainArmDiameter = 90;
-                } else if (this.mainArmament.Contains("Rbs 70")) {
-                    this.mainArmDiameter = 105;
-                } else if (this.mainArmament.Contains("Tager") || this.mainArmament.Contains("LFK SS.11")) {
-                    this.mainArmDiameter = 164;
-                } else if (this.mainArmament.Contains("MGM-166")) {
-                    this.mainArmDiameter = 162;
-                } else if (this.mainArmament.Contains("Type 64") || this.mainArmament.Contains("9M37M")) {
-                    this.mainArmDiameter = 120;
-                } else if (this.mainArmament.Contains("Fliegerfaust 2 Stinger")) {
-                    this.mainArmDiameter = 70;
-                } else if (this.mainArmament.Contains("3M7")) {
-                    this.mainArmDiameter = 180;
                 } else if (this.mainArmament.Contains("9M123")) {
                     this.mainArmDiameter = 155;
+                } else if (this.mainArmament.Contains("Type 81")) {
+                    this.mainArmDiameter = 160;
+                } else if (this.mainArmament.Contains("MGM-166")) {
+                    this.mainArmDiameter = 162;
+                } else if (this.mainArmament.Contains("Tager")
+                        || this.mainArmament.Contains("LFK SS.11")) {
+                    this.mainArmDiameter = 164;
+                } else if (this.mainArmament.Contains("Roland")
+                        || this.mainArmament.Contains("VT1")) {
+                    this.mainArmDiameter = 165;
+                } else if (this.mainArmament.Contains("Swingfire")) {
+                    this.mainArmDiameter = 170;
+                } else if (this.mainArmament.Contains("3M7")) {
+                    this.mainArmDiameter = 180;
+                } else if (this.mainArmament.Contains("9M331")) {
+                    this.mainArmDiameter = 239;
                 }
             }
 
