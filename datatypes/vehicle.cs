@@ -18,8 +18,8 @@ namespace WarThunder {
         protected int rank;
         protected string role;
         protected float[] br = new float[3]; // AB/RB/SB
-        float[] forwardSpeed = new float[2]; // AB/RB+SB
-        float[] reverseSpeed = new float[2]; // AB/RB+SB
+        protected float[] forwardSpeed = new float[2]; // AB/RB+SB
+        protected float[] reverseSpeed = new float[2]; // AB/RB+SB
         float weight;
         float[] enginePowerStock = new float[2]; // AB/RB+SB
         float[] enginePowerUpgraded = new float[2]; // AB/RB+SB
@@ -315,6 +315,10 @@ namespace WarThunder {
             Map(m => m.mainArmReload).Index(19).Name("main_reload_base");
             Map().Index(20).Name("main_reload_upgraded");
             Map(m => m.mainArmDiameter).Index(21).Name("main_arm_diameter");
+            Map(m => m.forwardSpeed).Index(22).Name("forward_ab");
+            Map().Index(23).Name("forward_rbsb");
+            Map(m => m.reverseSpeed).Index(24).Name("reverse_ab");
+            Map().Index(25).Name("reverse_rbsb");
         }
     }
     }
