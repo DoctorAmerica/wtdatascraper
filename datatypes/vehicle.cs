@@ -3,11 +3,29 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using CsvHelper;
 using utils;
-using System.Runtime.CompilerServices;
 using System.Linq.Expressions;
 
 namespace WarThunder {
+    public enum FeatureList : int{
+            stabilizer,
+            can_float,
+            smoke_grenade,
+            ess,
+            revers_gear,
+            night_vision,
+            rangefinder,
+            dozer,
+            era_armor,
+            autoloader,
+            thermal_vision,
+            laser_rangefinder,
+            hydro_suspension,
+            composite_armor,
+            lwr
+        };
     public class GroundVehicle {
+        // protected static List<string> allFeatures = new List<string>();
+        
         // Tree info
         protected string name;
         string url;
@@ -32,6 +50,8 @@ namespace WarThunder {
         protected float[] SLModifier = new float[3];
         protected float[] RPModifier = new float[3];
         protected float[] mainArmReload = new float[2];
+
+        protected bool[] hasFeature = new bool[15];
 
         protected float mainArmDiameter;
         
@@ -143,6 +163,9 @@ namespace WarThunder {
             //Features
             MatchCollection features = CompReg.featuresPtrn.Matches(page.Text);
             this.features = features.Cast<Match>().Select(m => m.Groups[1].Value).ToArray();
+            foreach(string feature in this.features) {
+                this.hasFeature[(int)Enum.Parse(typeof(FeatureList), feature)] = true;
+            }
 
             //Main Armament
             Match mainArm = CompReg.mainArmamentPtrn.Match(page.Text);
@@ -319,6 +342,21 @@ namespace WarThunder {
             Map().Index(23).Name("forward_rbsb");
             Map(m => m.reverseSpeed).Index(24).Name("reverse_ab");
             Map().Index(25).Name("reverse_rbsb");
+            Map(m => m.hasFeature).Index(26).Name("stabilizer");
+            Map().Index(27).Name("can_float");
+            Map().Index(28).Name("smoke_grenade");
+            Map().Index(29).Name("ess");
+            Map().Index(30).Name("revers_gear");
+            Map().Index(31).Name("night_vision");
+            Map().Index(32).Name("rangefinder");
+            Map().Index(33).Name("dozer");
+            Map().Index(34).Name("era_armor");
+            Map().Index(35).Name("autoloader");
+            Map().Index(36).Name("thermal_vision");
+            Map().Index(37).Name("laser_rangefinder");
+            Map().Index(38).Name("hydro_suspension");
+            Map().Index(39).Name("composite_armor");
+            Map().Index(40).Name("lwr");
         }
     }
     }
