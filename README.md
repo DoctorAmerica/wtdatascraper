@@ -27,3 +27,4 @@ Install the packages either in Visual Studio's built-in nuget package installer 
 ### Building
 
 Build with `dotnet build -c Release` and find the relevant executable and libraries under `bin>Release`
+or simply run with `dotnet run`
