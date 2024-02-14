@@ -24,7 +24,7 @@ Clone the repository with `git clone https://github.com/DoctorAmerica/wtwikidata
 
 Install the packages either in Visual Studio's built-in nuget package installer or with the `dotnet` commands provided in the links to the relevant packages in [Requirements](###Requirements) (make sure to be in the cloned repo when running `dotnet` commands)
 
-### Building
+### Building/Running
 
 Build with `dotnet build -c Release` and find the relevant executable and libraries under `bin>Release`
-or simply run with `dotnet run`
+or simply run with `dotnet run` (though I recommend `dotnet build -c Release && dotnet run` to do both at the same time. It take about half an hour to an hour to run, though this might be looked into in the future.
