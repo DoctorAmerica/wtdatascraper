@@ -27,4 +27,4 @@ Install the packages either in Visual Studio's built-in nuget package installer 
 ### Building/Running
 
 Build with `dotnet build -c Release` and find the relevant executable and libraries under `bin>Release`
-or simply run with `dotnet run` (though I recommend `dotnet build -c Release && dotnet run` to do both at the same time. It takes about half an hour to an hour to run, though this might be looked into in the future.
+or simply run with `dotnet run` (though I recommend `dotnet build -c Release && dotnet run` to do both at the same time). It takes about half an hour to an hour to run, though this might be looked into in the future.
