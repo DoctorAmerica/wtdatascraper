@@ -1,6 +1,7 @@
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
+using System.Web;
 
 namespace WarThunder {
     class Nation {
@@ -43,7 +44,7 @@ namespace WarThunder {
                 try {
                     AddGroundVehicle(
                         new GroundVehicle(
-                            match.Groups[3].Value.Replace("&quot;","\""), // name
+                            HttpUtility.HtmlDecode(match.Groups[3].Value), // name
                             "https://wiki.warthunder.com/"+match.Groups[2].Value, // link/url
                             this.name, // nation
                             match.Groups[1] is not null && match.Groups[1].Value is not null && match.Groups[1].Value == "  " // foldered
