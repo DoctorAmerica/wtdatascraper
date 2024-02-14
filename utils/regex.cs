@@ -14,12 +14,16 @@ namespace utils {
             "<a href=\"([^\"]*)\" title=\"([^\"]*)\">(SQUADRON)<\\/a>",
             RegexOptions.Compiled
         );
+        public static Regex gePattern = new Regex(
+            """<div class="general_info_price_buy"><span class="desc">Purchase:</span><span class="value">([0-9]* ?[0-9]*?) <a href="/Golden_Eagles" title="Golden Eagles"><img alt="Specs-Card-Eagle\.png" src="/images/f/f6/Specs-Card-Eagle\.png" width="24" height="24" data-file-width="24" data-file-height="24" /></a></span></div>\n</div>""",
+            RegexOptions.Compiled
+        );
         public static Regex giftPtrn = new Regex(
             """<a href="/Category:Gift_ground_vehicles" title="Category:Gift ground vehicles">Bundle or Gift</a>""",
             RegexOptions.Compiled
         );
         public static Regex marketPtrn = new Regex(
-            "<span>MARKET</span>",
+            """<span>MARKET</span>""",
             RegexOptions.Compiled
         );
         public static Regex packPtrn = new Regex(
@@ -56,6 +60,10 @@ namespace utils {
             "<\\/tr>((.)*?)<\\/table>",
             RegexOptions.Compiled | RegexOptions.Singleline
         );
+
+        public static Regex mobilityPtrn2 = new Regex(
+            """<div class="specs_char">\n<div class="specs_char_block">\n<div class="specs_char_line head"><span class="name">Speed</span><span class="value">forward / back</span></div>\n<div class="specs_char_line indent"><span class="name">AB</span><span class="value">([0-9]*) / ([0-9]*) km/h</span></div>\n<div class="specs_char_line indent"><span class="name">RB and SB</span><span class="value">([0-9]*) / ([0-9]*) km/h</span></div>\n</div>\n<div class="specs_char_block">\n<div class="specs_char_line head"><span class="name">Number of gears</span><span class="value">([0-9]*) forward</span></div>\n<div class="specs_char_line indent"><span class="name"></span><span class="value">([0-9]*) back</span></div>\n</div>\n<div class="specs_char_block">\n<div class="specs_char_line head"><span class="name">Weight</span><span class="value">([0-9.]*) t</span></div>\n</div>\n<div class="specs_char_block">\n<div class="specs_char_line head"><span class="name">Engine power</span><span class="value"></span></div>\n<div class="specs_char_line indent"><span class="name">AB</span><span class="value">([0-9]* ?[0-9]*) hp</span></div>\n<div class="specs_char_line indent"><span class="name">RB and SB</span><span class="value">([0-9]* ?[0-9]*) hp</span></div>\n</div>\n<div class="specs_char_block">\n<div class="specs_char_line head"><span class="name">Power-to-weight ratio</span><span class="value"></span></div>\n<div class="specs_char_line indent"><span class="name">AB</span><span class="value">([0-9.]*) hp/t</span></div>\n<div class="specs_char_line indent"><span class="name">RB and SB</span><span class="value">([0-9.]*) hp/t</span></div>\n</div>\n</div>\n</div>""",
+            RegexOptions.Compiled);
         public static Regex repairPtrn = new Regex(
             "<div class=\"specs_char_line indent\"><span class=\"name\">(A|R|S)B<\\/span><span class=\"value\">([\\d\\s]*)(?:→([\\d\\s]+) )?<a href=\"\\/Silver_Lions\" title=\"Silver Lions\">((.)*?)<\\/span><\\/div>",
             RegexOptions.Compiled | RegexOptions.Singleline

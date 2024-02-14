@@ -54,6 +54,7 @@ namespace WarThunder {
         protected bool[] hasFeature = new bool[15];
 
         protected float mainArmDiameter;
+        protected bool isPremium;
         
 
         public GroundVehicle(string name, string url, string nation, bool foldered) {
@@ -94,15 +95,20 @@ namespace WarThunder {
 
             //premium
             if (CompReg.premiumPtrn.Match(page.Text).Success) {
+                this.isPremium = true;
                 if(CompReg.marketPtrn.Match(page.Text).Success) {
-                    this.purchaseType = "Market Premium";
+                    this.purchaseType = "Market";
                 } else if (CompReg.packPtrn.Match(page.Text).Success) {
-                    this.purchaseType = "Pack Premium";
+                    this.purchaseType = "Pack";
+                } else if (CompReg.gePattern.Match(page.Text).Success) {
+                    this.purchaseType = "GE";
                 } else {
-                    this.purchaseType = "Gift Premium";
+                    this.purchaseType = "Gift";
                 }
             } else if(CompReg.squadronPtrn.Match(page.Text).Success) {
                 this.purchaseType = "Squadron";
+            } else if(CompReg.marketPtrn.Match(page.Text).Success) {
+                this.purchaseType = "Market";
             } else if(CompReg.giftPtrn.Match(page.Text).Success) {
                 this.purchaseType = "Gift";
             } else {
@@ -121,34 +127,61 @@ namespace WarThunder {
             //Specs
 
             //Mobility
-            Match mobility = CompReg.mobilityPtrn.Match(page.Text);
-            //Speed
-            //AB
-            this.forwardSpeed[0] = float.Parse(mobility.Groups[2].Value);
-            this.reverseSpeed[0] = float.Parse(mobility.Groups[3].Value);
-            //RB/SB
-            this.forwardSpeed[1] = float.Parse(mobility.Groups[13].Value);
-            this.reverseSpeed[1] = float.Parse(mobility.Groups[14].Value);
-            //Weight
-            this.weight = float.Parse(mobility.Groups[4].Value);
-            //Power
-            //AB
-            try {this.enginePowerStock[0] = float.Parse(mobility.Groups[7].Value);}
-            catch(FormatException) {this.enginePowerStock[0] = -1;}
-            this.enginePowerUpgraded[0] = float.Parse(mobility.Groups[8].Value);
-            //RB/SB
-            try {this.enginePowerStock[1] = float.Parse(mobility.Groups[15].Value);}
-            catch(FormatException) {this.enginePowerStock[1] = -1;}
-            this.enginePowerUpgraded[1] = float.Parse(mobility.Groups[16].Value);
-            //Pwr/Wt
-            //AB
-            try{this.pwrWtStock[0] = float.Parse(mobility.Groups[9].Value);}
-            catch(FormatException) {this.pwrWtStock[0] = -1;}
-            this.pwrWtUpgraded[0] = float.Parse(mobility.Groups[10].Value);
-            //RB/SB
-            try{this.pwrWtStock[1] = float.Parse(mobility.Groups[17].Value);}
-            catch(FormatException) {this.pwrWtStock[1] = -1;}
-            this.pwrWtUpgraded[1] = float.Parse(mobility.Groups[18].Value);
+            try {
+                Match mobility = CompReg.mobilityPtrn.Match(page.Text);
+                //Speed
+                //AB
+                this.forwardSpeed[0] = float.Parse(mobility.Groups[2].Value);
+                this.reverseSpeed[0] = float.Parse(mobility.Groups[3].Value);
+                //RB/SB
+                this.forwardSpeed[1] = float.Parse(mobility.Groups[13].Value);
+                this.reverseSpeed[1] = float.Parse(mobility.Groups[14].Value);
+                //Weight
+                this.weight = float.Parse(mobility.Groups[4].Value);
+                //Power
+                //AB
+                try {this.enginePowerStock[0] = float.Parse(mobility.Groups[7].Value);}
+                catch(FormatException) {this.enginePowerStock[0] = -1;}
+                this.enginePowerUpgraded[0] = float.Parse(mobility.Groups[8].Value);
+                //RB/SB
+                try {this.enginePowerStock[1] = float.Parse(mobility.Groups[15].Value);}
+                catch(FormatException) {this.enginePowerStock[1] = -1;}
+                this.enginePowerUpgraded[1] = float.Parse(mobility.Groups[16].Value);
+                //Pwr/Wt
+                //AB
+                try{this.pwrWtStock[0] = float.Parse(mobility.Groups[9].Value);}
+                catch(FormatException) {this.pwrWtStock[0] = -1;}
+                this.pwrWtUpgraded[0] = float.Parse(mobility.Groups[10].Value);
+                //RB/SB
+                try{this.pwrWtStock[1] = float.Parse(mobility.Groups[17].Value);}
+                catch(FormatException) {this.pwrWtStock[1] = -1;}
+                this.pwrWtUpgraded[1] = float.Parse(mobility.Groups[18].Value);
+            } catch(FormatException) {
+                Match mobility = CompReg.mobilityPtrn2.Match(page.Text);
+                //Speed
+                //AB
+                this.forwardSpeed[0] = float.Parse(mobility.Groups[1].Value.Replace(" ",""));
+                this.reverseSpeed[0] = float.Parse(mobility.Groups[2].Value.Replace(" ",""));
+                //RB/SB
+                this.forwardSpeed[1] = float.Parse(mobility.Groups[3].Value.Replace(" ",""));
+                this.reverseSpeed[1] = float.Parse(mobility.Groups[4].Value.Replace(" ",""));
+                //Weight
+                this.weight = float.Parse(mobility.Groups[7].Value.Replace(" ",""));
+                //Power
+                //AB
+                this.enginePowerStock[0] = -1;
+                this.enginePowerUpgraded[0] = float.Parse(mobility.Groups[8].Value.Replace(" ",""));
+                //RB/SB
+                this.enginePowerStock[1] = -1;
+                this.enginePowerUpgraded[1] = float.Parse(mobility.Groups[9].Value.Replace(" ",""));
+                //Pwr/Wt
+                //AB
+                this.pwrWtStock[0] = -1;
+                this.pwrWtUpgraded[0] = float.Parse(mobility.Groups[10].Value.Replace(" ",""));
+                //RB/SB
+                this.pwrWtStock[1] = -1;
+                this.pwrWtUpgraded[1] = float.Parse(mobility.Groups[11].Value.Replace(" ",""));
+            }
 
             //Repair Cost
             MatchCollection repairs = CompReg.repairPtrn.Matches(page.Text);
@@ -279,7 +312,8 @@ namespace WarThunder {
                        $"URL: {url}\nNation: {nation}\n"+
                        $"Foldered: {foldered}\n"+
                        $"Rank: {rank}\n"+
-                       $"Premium: {purchaseType}\n"+
+                       $"Premium: {isPremium}\n"+
+                       $"Purchase Type: {purchaseType}\n"+
                        $"Role: {role}\n"+
                        $"Battle Rating(s):\n"+
                        $"\tAB: {br[0]}\n"+
@@ -342,21 +376,22 @@ namespace WarThunder {
             Map().Index(23).Name("forward_rbsb");
             Map(m => m.reverseSpeed).Index(24).Name("reverse_ab");
             Map().Index(25).Name("reverse_rbsb");
-            Map(m => m.hasFeature).Index(26).Name("stabilizer");
+            Map(m => m.hasFeature).Index(26).Name("has_stabilizer");
             Map().Index(27).Name("can_float");
-            Map().Index(28).Name("smoke_grenade");
-            Map().Index(29).Name("ess");
-            Map().Index(30).Name("revers_gear");
-            Map().Index(31).Name("night_vision");
-            Map().Index(32).Name("rangefinder");
-            Map().Index(33).Name("dozer");
-            Map().Index(34).Name("era_armor");
-            Map().Index(35).Name("autoloader");
-            Map().Index(36).Name("thermal_vision");
-            Map().Index(37).Name("laser_rangefinder");
-            Map().Index(38).Name("hydro_suspension");
-            Map().Index(39).Name("composite_armor");
-            Map().Index(40).Name("lwr");
+            Map().Index(28).Name("has_smoke_grenade");
+            Map().Index(29).Name("has_ess");
+            Map().Index(30).Name("has_revers_gear");
+            Map().Index(31).Name("has_night_vision");
+            Map().Index(32).Name("has_rangefinder");
+            Map().Index(33).Name("has_dozer");
+            Map().Index(34).Name("has_era_armor");
+            Map().Index(35).Name("has_autoloader");
+            Map().Index(36).Name("has_thermal_vision");
+            Map().Index(37).Name("has_laser_rangefinder");
+            Map().Index(38).Name("has_hydro_suspension");
+            Map().Index(39).Name("has_composite_armor");
+            Map().Index(40).Name("has_lwr");
+            Map(m => m.isPremium).Index(41).Name("is_premium");
         }
     }
     }
