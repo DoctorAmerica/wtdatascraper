@@ -14,7 +14,7 @@ There currently is no comprehensive data sheet with all of the relevant and usef
 
 ### Requirements
 
-Uses [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (7 should also work if you change it in the `.csproj` file), and the nuget packages [CsvHelper](https://www.nuget.org/packages/CsvHelper/) and [HtmlAgilityPack](https://www.nuget.org/packages/HtmlAgilityPack)
+Uses [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (7 should also work if you change it in the `.csproj` file), and the nuget packages [CsvHelper](https://www.nuget.org/packages/CsvHelper/) and [HtmlAgilityPack](https://www.nuget.org/packages/HtmlAgilityPack) (although they should download automatically during the build process).
 
 ### Git Clone
 
