@@ -1,6 +1,6 @@
-# War Thunder Wiki Data Scraper
+# War Thunder Data Scraper
 
-This tool aims to be able to automatically scrape and save data directly from the [War Thunder Wiki](wiki.warthunder.com)
+This tool aims to be able to automatically scrape and save data directly from the [War Thunder Wiki](wiki.warthunder.com) and the [War Thunder Replays](https://warthunder.com/en/tournament/replay/)
 
 ## Preface
 
@@ -8,7 +8,7 @@ This code isn't necessarily designed for everyone and their mother to create a c
 
 ## Reason
 
-There currently is no comprehensive data sheet with all of the relevant and useful information on the wiki, especially one that can be easily used for statistical analysis. To address this problem, I am going ahead to make a tool for the purposes of scraping as much of the statistics off of the wiki as possible. I'm going to be starting with the ground trees first due to simplicity and cohesiveness, but I will probably add Air, and possibly Naval later.
+There currently is no comprehensive data sheet with all of the relevant and useful information on the wiki, and non-aggregated data from replays, especially one that can be easily used for statistical analysis. To address this problem, I am going ahead to make a tool for the purposes of scraping as much of the statistics as possible. I'm going to be starting with the ground trees (with a focus on realistic battles) first due to simplicity and cohesiveness, but I will probably add Air, and possibly Naval later.
 
 ## Installation
 
@@ -18,7 +18,7 @@ Uses [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (7 should 
 
 ### Git Clone
 
-Clone the repository with `git clone https://github.com/DoctorAmerica/wtwikidatascraper`
+Clone the repository with `git clone https://github.com/DoctorAmerica/wtdatascraper`
 
 ### Installing Packages
 
