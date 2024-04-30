@@ -21,8 +21,16 @@ namespace Program
                 nations.Add(nation);
             }
             // nations.Add(new WarThunder.Nation("Italy"));
+            List<Task<List<GroundVehicle>>> tasks = new List<Task<List<GroundVehicle>>>();
             foreach(WarThunder.Nation nation in nations) {
-                allRemoved.AddRange(nation.GetVehicleInfo());
+                Task<List<GroundVehicle>> thread = new Task<List<GroundVehicle>>(nation.GetVehicleInfo);
+                tasks.Add(thread);
+                thread.Start();
+            }
+
+            foreach(Task<List<GroundVehicle>> thread in tasks) {
+                thread.Wait();
+                allRemoved.AddRange(thread.Result); 
             }
 
             if(allRemoved.Count() > 0) {

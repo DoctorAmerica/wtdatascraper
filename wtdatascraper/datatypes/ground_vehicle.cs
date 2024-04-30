@@ -445,7 +445,7 @@ namespace WarThunder
             }
         }
 
-        public string CSVRow() {
+        string ICSVObj.CSVRow() {
             StringBuilder sb = new StringBuilder();
             List<string> values = [
                 name,
@@ -509,11 +509,6 @@ namespace WarThunder
 
         List<string> ICSVObj.CSVColumns() {
             return GroundVehicle.CSVColumns();
-        }
-
-        string ICSVObj.CSVRow()
-        {
-            throw new NotImplementedException();
         }
 
         /**
