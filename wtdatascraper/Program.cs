@@ -22,26 +22,7 @@ namespace Program
             }
             // nations.Add(new WarThunder.Nation("Italy"));
             foreach(WarThunder.Nation nation in nations) {
-                List<WarThunder.GroundVehicle> removed = new List<WarThunder.GroundVehicle>();
-                List<Task> tasks = new List<Task>();
-                foreach(WarThunder.GroundVehicle vehicle in nation.GetGroundVehicles()) {
-                    Task<GroundVehicle> thread = new Task<GroundVehicle>(vehicle.GetInfoFromPage);
-                    tasks.Add(thread);
-                    thread.Start();
-                }
-                for (int i = 0; i < tasks.Count; i++) {
-                    Task thread = tasks.ElementAt(i);
-                    GroundVehicle vehicle = nation.GetGroundVehicles().ElementAt(i);
-                    try {
-                        thread.Wait();
-                        Console.WriteLine(vehicle);
-                    } catch (Exception e) {
-                        Console.WriteLine($"{vehicle.GetName()} failed to be acquired and will be removed from the dataset. Investigate at the following link: ({vehicle.GetURL()})\n{e}\n");
-                        removed.Add(vehicle);
-                        allRemoved.Add(vehicle);
-                    }
-                }
-                nation.RemoveGroundVehicle(removed);
+                allRemoved.AddRange(nation.GetVehicleInfo());
             }
 
             if(allRemoved.Count() > 0) {
