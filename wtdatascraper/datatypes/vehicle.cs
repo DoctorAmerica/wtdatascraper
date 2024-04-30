@@ -13,5 +13,6 @@ namespace WarThunder {
         public string purchaseType { get; set; }
         public bool isPremium { get; set; }
         public bool isReserve { get; set; }
+        public void GetInfoFromPage();
     }
 }

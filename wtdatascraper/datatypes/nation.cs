@@ -61,7 +61,7 @@ namespace WarThunder
             List<WarThunder.GroundVehicle> removed = new List<WarThunder.GroundVehicle>();
             List<Task> tasks = new List<Task>();
             foreach(WarThunder.GroundVehicle vehicle in this.GetGroundVehicles()) {
-                Task<GroundVehicle> thread = new Task<GroundVehicle>(vehicle.GetInfoFromPage);
+                Task thread = new Task(vehicle.GetInfoFromPage);
                 tasks.Add(thread);
                 thread.Start();
             }

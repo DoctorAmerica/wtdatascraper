@@ -67,13 +67,12 @@ namespace WarThunder
             return additionalInfo;
         }
 
-        public GroundVehicle GetInfoFromPage()
+        public void GetInfoFromPage()
         {
             HtmlDocument page = Scraper.GetDocument(url);
             GetVehicleGameMetadata(page);
             GetVehicleSpecs(page);
             additionalInfo = true;
-            return this;
         }
 
         private void GetVehicleSpecs(HtmlDocument page)
