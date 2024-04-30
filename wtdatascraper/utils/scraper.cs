@@ -1,7 +1,7 @@
-using System.Net;
 using HtmlAgilityPack;
 
-namespace utils {
+namespace utils
+{
 
     public class Scraper {
         static HtmlWeb webBrowser = new HtmlWeb();

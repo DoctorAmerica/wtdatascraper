@@ -1,9 +1,9 @@
-using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using System.Web;
 
-namespace WarThunder {
+namespace WarThunder
+{
     class Nation {
         public List<GroundVehicle> GroundVehicles;
         private string name;

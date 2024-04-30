@@ -3,7 +3,8 @@ using HtmlAgilityPack;
 using utils;
 using WarThunder;
 
-namespace Program {
+namespace Program
+{
 
     class WTWikiDataScraper {
 
@@ -22,9 +23,17 @@ namespace Program {
             // nations.Add(new WarThunder.Nation("Italy"));
             foreach(WarThunder.Nation nation in nations) {
                 List<WarThunder.GroundVehicle> removed = new List<WarThunder.GroundVehicle>();
+                List<Task> tasks = new List<Task>();
                 foreach(WarThunder.GroundVehicle vehicle in nation.GetGroundVehicles()) {
+                    Task<GroundVehicle> thread = new Task<GroundVehicle>(vehicle.GetInfoFromPage);
+                    tasks.Add(thread);
+                    thread.Start();
+                }
+                for (int i = 0; i < tasks.Count; i++) {
+                    Task thread = tasks.ElementAt(i);
+                    GroundVehicle vehicle = nation.GetGroundVehicles().ElementAt(i);
                     try {
-                        vehicle.GetInfoFromPage();
+                        thread.Wait();
                         Console.WriteLine(vehicle);
                     } catch (Exception e) {
                         Console.WriteLine($"{vehicle.GetName()} failed to be acquired and will be removed from the dataset. Investigate at the following link: ({vehicle.GetURL()})\n{e}\n");

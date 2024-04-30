@@ -97,6 +97,11 @@ namespace utils {
             """<div class="specs_char_line indent"><span class="name"></span><span class="value">([0-9.]*?) → ([0-9.]*?) s</span></div>|<div class="specs_char_line head"><span class="name">Reload</span><span class="value">([0-9.]*?) s</span></div>""",
             RegexOptions.Compiled
         );
+
+        public static Regex reservePtrn = new Regex(
+            """<div class="general_info_price_research"><span class="desc">Research:</span><span class="value">Free</span></div><div class="general_info_price_buy"><span class="desc">Purchase:</span><span class="value">Free</span></div>""",
+            RegexOptions.Compiled
+        );
     }
     class RegFunc {
         public static string Replace(string input, Regex reg, Func<Match, string> replace) {
