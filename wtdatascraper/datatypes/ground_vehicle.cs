@@ -448,14 +448,14 @@ namespace WarThunder
         string ICSVObj.CSVRow() {
             StringBuilder sb = new StringBuilder();
             List<string> values = [
-                name,
-                nation,
+                '"'+name+'"',
+                '"'+nation+'"',
                 ""+foldered,
                 ""+rank,
-                role,
-                mainArmament,
+                '"'+role+'"',
+                '"'+mainArmament+'"',
                 ""+mainArmDiameter,
-                purchaseType,
+                '"'+purchaseType+'"',
                 ""+isPremium,
                 ""+isReserve,
                 string.Join(",",br),

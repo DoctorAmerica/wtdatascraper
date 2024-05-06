@@ -72,8 +72,18 @@ namespace WarThunder
                     thread.Wait();
                     // Console.WriteLine(vehicle);
                 } catch (Exception e) {
-                    Console.WriteLine($"{vehicle.GetName()} failed to be acquired and will be removed from the dataset. Investigate at the following link: ({vehicle.GetURL()})\n{e}\n");
-                    removed.Add(vehicle);
+                    bool acquired = false;
+                    for (int j = 0; j < 3; j++) {
+                        try {
+                            vehicle.GetInfoFromPage();
+                            acquired = true;
+                            break;
+                        } catch (Exception) {}
+                    }
+                    if (!acquired) {
+                        Console.WriteLine($"{vehicle.GetName()} failed to be acquired and will be removed from the dataset. Investigate at the following link: ({vehicle.GetURL()})\n{e}\n");
+                        removed.Add(vehicle);
+                    }
                 }
             }
             this.RemoveGroundVehicle(removed);
