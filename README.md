@@ -14,7 +14,7 @@ There currently is no comprehensive data sheet with all of the relevant and usef
 
 ### Requirements
 
-Uses [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (7 should also work if you change it in the `.csproj` file), and the nuget packages [CsvHelper](https://www.nuget.org/packages/CsvHelper/) and [HtmlAgilityPack](https://www.nuget.org/packages/HtmlAgilityPack) (although they should download automatically during the build process).
+Uses [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (7 should also work if you change it in the `.csproj` file), and the nuget package [HtmlAgilityPack](https://www.nuget.org/packages/HtmlAgilityPack) (although it should download automatically during the build process).
 
 ### Git Clone
 
@@ -27,4 +27,4 @@ Install the packages either in Visual Studio's built-in nuget package installer 
 ### Building/Running
 
 Build with `dotnet build -c Release` and find the relevant executable and libraries under `wtdatascraper>bin>Release`
-or simply run with `dotnet run --project wtdatascraper` (though I recommend `dotnet build -c Release && dotnet run --project wtdatascraper` to do both at the same time). It takes about half an hour to an hour to run, though this might be looked into in the future.
+or simply run with `dotnet run --project wtdatascraper -c Release` (though I recommend `dotnet build -c Release && dotnet run --project wtdatascraper -c Release` to do both at the same time). It takes about half an hour to an hour to run, though this might be looked into in the future.
