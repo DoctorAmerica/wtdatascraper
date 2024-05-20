@@ -39,7 +39,7 @@ namespace Program
                     Console.WriteLine(removedV.GetURL());
                 }
             }
-            List<WarThunder.GroundVehicle> vehicles = nations.SelectMany(x => x.GroundVehicles).ToList();
+            List<WarThunder.GroundVehicle> vehicles = nations.SelectMany(x => x.GroundVehicles).OrderBy(o => o.name).ToList();
             CSV.writeToCsv(vehicles, "out.csv");
         }
     }
