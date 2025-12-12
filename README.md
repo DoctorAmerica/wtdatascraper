@@ -1,6 +1,6 @@
-# War Thunder Data Scraper
+# War Thunder Wiki Scraper
 
-This tool aims to be able to automatically scrape and save data directly from the [War Thunder Wiki](wiki.warthunder.com) and the [War Thunder Replays](https://warthunder.com/en/tournament/replay/)
+This (DEPRECATED) tool aims to be able to automatically scrape and save data directly from the [War Thunder Wiki](wiki.warthunder.com)
 
 ## Preface
 
